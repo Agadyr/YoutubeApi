@@ -8,11 +8,14 @@ use Illuminate\Http\Request;
 
 class ChannelsController extends Controller
 {
-    public function index(){
-        return Channel::with('videos')->get();
+    public function index()
+    {
+        return Channel::with('user','videos')->get();
     }
-    public function show(Channel $channel){
-        return $channel->load('videos');
+
+    public function show(Channel $channel)
+    {
+        return $channel->load('user','videos');
     }
 
 }

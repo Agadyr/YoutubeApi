@@ -8,10 +8,13 @@ use Illuminate\Http\Request;
 
 class VideoController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         return Video::with('channel')->get();
     }
-    public function show(Video $video){
+
+    public function show(Video $video)
+    {
         return $video->load('channel');
     }
 }
