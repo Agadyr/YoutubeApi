@@ -21,7 +21,7 @@ class VideoFactory extends Factory
     {
         return [
             'title' => ucfirst($this->faker->words(mt_rand(1, 2), true)),
-            'channel_id'=>Channel::inRandomOrder()->first()
+            'channel_id'=> Channel::factory()
         ];
     }
 
