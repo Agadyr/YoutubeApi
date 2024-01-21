@@ -5,12 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Channel extends Model
+class Video extends Model
 {
     use HasFactory;
 
-    public function videos()
-    {
-        return $this->hasMany(Video::class);
+    public function channel(){
+        return $this->belongsTo(Channel::class);
     }
 }

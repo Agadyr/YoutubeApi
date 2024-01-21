@@ -9,10 +9,10 @@ use Illuminate\Http\Request;
 class ChannelsController extends Controller
 {
     public function index(){
-        return Channel::get();
+        return Channel::with('videos')->get();
     }
     public function show(Channel $channel){
-        return $channel;
+        return $channel->load('videos');
     }
 
 }
