@@ -17,7 +17,9 @@ class VideoFactory extends Factory
      */
     public function definition(): array
     {
-        $createdAt = $this->faker->dateTimeThisYear();
+        $createdAt = $this->createdAt();
+
+
         return [
             'title' => ucfirst($this->faker->words(mt_rand(1, 2), true)),
             'channel_id' => Channel::factory(),
@@ -29,6 +31,10 @@ class VideoFactory extends Factory
     /**
      * Indicate that the model's email address should be unverified.
      */
+    private function createdAt(){
+        $period = $this->faker->randomElement(['year', 'month', 'week', 'day', 'hour',]);
+        return $this->faker->dateTimeBetween("-1 $period");
+    }
     public function unverified(): static
     {
         return $this->state(fn (array $attributes) => [
