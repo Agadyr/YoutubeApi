@@ -22,6 +22,7 @@ class VideoFactory extends Factory
 
         return [
             'title' => ucfirst($this->faker->words(mt_rand(1, 2), true)),
+            'description'=> $this->faker->sentences(3,true),
             'channel_id' => Channel::factory(),
             'created_at' =>$createdAt,
             'updated_at' =>$createdAt,
