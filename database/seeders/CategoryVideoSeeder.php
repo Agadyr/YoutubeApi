@@ -13,26 +13,38 @@ class CategoryVideoSeeder extends Seeder
     /**
      * Run the database seeds.
      */
-    public function run(): void
-    {
-        $categories = Category::pluck('id')->all();
-        $videos = Video::pluck('id')->all();
+//    public function run(): void
+//    {
+//
+//
+//        $categoryVideo = [];
+//
+//        foreach ($categories as $category) {
+//            $randomVideos = Arr::random($videos, mt_rand(1, count($videos)));
+//
+//            foreach ($randomVideos as $randomVideo) {
+//                $categoryVideo[] =
+//                    [
+//                        'category_id' => $category,
+//                        'video_id' => $randomVideo,
+//                    ];
+//            }
+//        }
+//
+//
+//    }
+    public function run(){
+        $categories = Category::pluck('id');
+        $videos = Video::pluck('id');
 
-        $categoryVideo = [];
+        $categoryVideos = $categories->map(function (int $id) use($videos){
+            return [
+                'category_id'=>$id,
+                'video_id'=>$videos->random(),
+            ];
+        });
 
-        foreach ($categories as $category) {
-            $randomVideos = Arr::random($videos, mt_rand(1, count($videos)));
 
-            foreach ($randomVideos as $randomVideo) {
-                $categoryVideo[] =
-                    [
-                        'category_id' => $category,
-                        'video_id' => $randomVideo,
-                    ];
-            }
-        }
-
-        DB::table('category_video')->insert($categoryVideo);
-
+        DB::table('category_video')->insert($categoryVideos->all());
     }
 }
