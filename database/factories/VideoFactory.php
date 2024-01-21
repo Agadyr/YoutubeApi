@@ -3,9 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Channel;
-use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Video>
@@ -21,7 +19,7 @@ class VideoFactory extends Factory
     {
         return [
             'title' => ucfirst($this->faker->words(mt_rand(1, 2), true)),
-            'channel_id'=> Channel::factory()
+            'channel_id' => Channel::factory(),
         ];
     }
 

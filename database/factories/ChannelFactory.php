@@ -4,7 +4,6 @@ namespace Database\Factories;
 
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Channel>
@@ -19,7 +18,7 @@ class ChannelFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => ucfirst($this->faker->words(mt_rand(1,2),true)),
+            'name' => ucfirst($this->faker->words(mt_rand(1, 2), true)),
             'user_id' => User::factory(),
         ];
     }
