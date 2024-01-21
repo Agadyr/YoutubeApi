@@ -17,9 +17,12 @@ class VideoFactory extends Factory
      */
     public function definition(): array
     {
+        $createdAt = $this->faker->dateTimeThisYear();
         return [
             'title' => ucfirst($this->faker->words(mt_rand(1, 2), true)),
             'channel_id' => Channel::factory(),
+            'created_at' =>$createdAt,
+            'updated_at' =>$createdAt,
         ];
     }
 
