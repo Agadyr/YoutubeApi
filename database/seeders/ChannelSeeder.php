@@ -2,16 +2,16 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
+use App\Models\Channel;
 use Illuminate\Database\Seeder;
 
-class UserSeeder extends Seeder
+class ChannelSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        User::factory()->count(4)->create();
+        Channel::factory()->count(4)->create();
     }
 }
