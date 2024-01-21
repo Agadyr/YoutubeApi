@@ -13,8 +13,7 @@ class VideoController extends Controller
 
 
         return Video::FromPeriod($period)
-            ->where('title','like','%'.request('query').'%')
-            ->orWhere('description','like','%'.request('query').'%')
+            ->search(request('query'))
             ->get();
 
 

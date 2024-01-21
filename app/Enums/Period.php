@@ -17,7 +17,7 @@ enum Period: string
     {
         return match ($this) {
 
-            static::Day => now()->startOfYear(),
+            static::Year => now()->startOfYear(),
             static::Week => now()->startOfMonth(),
             static::Month => now()->startOfWeek(),
             static::Day => now()->startOfDay(),
