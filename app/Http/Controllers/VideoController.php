@@ -13,9 +13,9 @@ class VideoController extends Controller
 
 
         return Video::FromPeriod($period)
-            ->search(request('query'))
+            ->Search(request('query'))
             ->limit(request('limit'))
-            ->orderBy(request('sort'),request('order','asc'))
+            ->orderBy(request('sort','created_at'),request('order','asc'))
             ->get();
 
 

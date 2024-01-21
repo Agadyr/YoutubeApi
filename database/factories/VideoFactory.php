@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\Period;
 use App\Models\Channel;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -17,28 +18,34 @@ class VideoFactory extends Factory
      */
     public function definition(): array
     {
-        $createdAt = $this->createdAt();
 
 
         return [
             'title' => ucfirst($this->faker->words(mt_rand(1, 2), true)),
-            'description'=> $this->faker->sentences(3,true),
+            'description' => $this->faker->sentences(3, true),
             'channel_id' => Channel::factory(),
-            'created_at' =>$createdAt,
-            'updated_at' =>$createdAt,
         ];
     }
 
     /**
      * Indicate that the model's email address should be unverified.
      */
-    private function createdAt(){
-        $period = $this->faker->randomElement(['year', 'month', 'week', 'day', 'hour',]);
-        return $this->faker->dateTimeBetween("-1 $period");
+
+    public function last(Period $period)
+    {
+        return $this->state(function() use ($period) {
+            $createdAt = $this->faker->dateTimeBetween("-1 $period->value");
+
+            return [
+                'created_at'=> $createdAt,
+                'updated_at'=> $createdAt,
+            ];
+        });
     }
+
     public function unverified(): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn(array $attributes) => [
             'email_verified_at' => null,
         ]);
     }
