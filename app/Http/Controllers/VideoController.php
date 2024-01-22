@@ -10,7 +10,7 @@ class VideoController extends Controller
     public function index()
     {
 
-        return Video::with(request('with', []))
+        return Video::WithRelationships(request('with',[]))
             ->fromPeriod(Period::tryFrom(request('period')))
             ->Search(request('query'))
             ->orderBy(request('sort', 'created_at'), request('order', 'desc'))

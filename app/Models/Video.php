@@ -34,4 +34,9 @@ class Video extends Model
                 ->orWhere('description', 'like',"%$text%");
         });
     }
+    public function scopeWithRelationships($query,array $with){
+        $relationships = ['channel', 'playlists', 'categories'];
+        return $query->with(array_intersect($with, $relationships));
+    }
+
 }
