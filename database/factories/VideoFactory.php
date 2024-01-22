@@ -22,7 +22,7 @@ class VideoFactory extends Factory
 
         return [
             'title' => ucfirst($this->faker->words(mt_rand(1, 2), true)),
-            'description' => $this->faker->sentences(3, true),
+            'description' => $this->faker->sentences(mt_rand(1, 3), true),
             'channel_id' => Channel::factory(),
         ];
     }
@@ -33,12 +33,12 @@ class VideoFactory extends Factory
 
     public function last(Period $period)
     {
-        return $this->state(function() use ($period) {
+        return $this->state(function () use ($period) {
             $createdAt = $this->faker->dateTimeBetween("-1 $period->value");
 
             return [
-                'created_at'=> $createdAt,
-                'updated_at'=> $createdAt,
+                'created_at' => $createdAt,
+                'updated_at' => $createdAt,
             ];
         });
     }
