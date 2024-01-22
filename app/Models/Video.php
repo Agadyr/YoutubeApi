@@ -25,16 +25,21 @@ class Video extends Model
         return $this->belongsToMany(Playlist::class);
     }
 
-    public function scopefromPeriod($query,?Period $period){
+    public function scopefromPeriod($query, ?Period $period)
+    {
         return $period ? $query->where('created_at', '>=', $period->date()) : $query;
     }
-    public function scopeSearch($query, ?string $text){
-        return $query->where(function ($query) use($text){
+
+    public function scopeSearch($query, ?string $text)
+    {
+        return $query->where(function ($query) use ($text) {
             $query->where('title', 'like', "%$text%")
-                ->orWhere('description', 'like',"%$text%");
+                ->orWhere('description', 'like', "%$text%");
         });
     }
-    public function scopeWithRelationships($query,array $with){
+
+    public function scopeWithRelationships($query, array $with)
+    {
         $relationships = ['channel', 'playlists', 'categories'];
         return $query->with(array_intersect($with, $relationships));
     }

@@ -9,7 +9,7 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        return Category::with(request('with', []))
+        return Category::WithRelationships(request('with', []))
             ->Search(request('query'))
             ->orderBy(request('sort', 'name'), request('order', 'asc'))
             ->simplePaginate(request('limit'));
@@ -17,6 +17,8 @@ class CategoryController extends Controller
 
     public function show(Category $category)
     {
-        return $category->load(request('with',[]));
+        return $category->load(request('with', []));
     }
+
+
 }

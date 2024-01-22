@@ -24,4 +24,10 @@ class Channel extends Model
     public function scopeSearch($query, ?string $name){
         return $query->where('name', 'like', "%$name%");
     }
+
+    public function scopeWithRelationships($query, array $with)
+    {
+        $relationships = ['videos', 'playlists', 'user'];
+        return $query->with(array_intersect($with, $relationships));
+    }
 }

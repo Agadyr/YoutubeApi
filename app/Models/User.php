@@ -53,4 +53,10 @@ class User extends Authenticatable
                 ->orWhere('email', 'like',"%$text%");
         });
     }
+
+    public function scopeWithRelationships($query, array $with)
+    {
+        $relationships = ['channel'];
+        return $query->with(array_intersect($with, $relationships));
+    }
 }

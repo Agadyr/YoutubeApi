@@ -18,4 +18,9 @@ class Playlist extends Model
     public function scopeSearch($query, ?string $name){
         return $query->where('name', 'like', "%$name%");
     }
+    public function scopeWithRelationships($query, array $with)
+    {
+        $relationships = ['channel', 'videos'];
+        return $query->with(array_intersect($with, $relationships));
+    }
 }
