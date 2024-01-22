@@ -20,7 +20,7 @@ class Video extends Model
         return $this->belongsToMany(Category::class);
     }
 
-    public function scopeFromPeriod($query,?Period $period){
+    public function scopefromPeriod($query,?Period $period){
         return $period ? $query->where('created_at', '>=', $period->date()) : $query;
     }
     public function scopeSearch($query, ?string $text){
