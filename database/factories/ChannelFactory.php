@@ -18,7 +18,7 @@ class ChannelFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => ucfirst($this->faker->words(mt_rand(1, 2), true)),
+            'name' => ucfirst(fake()->words(mt_rand(1, 2), true)),
             'user_id' => User::factory(),
         ];
     }
