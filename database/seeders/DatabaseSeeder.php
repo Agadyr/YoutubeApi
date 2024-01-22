@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Playlist;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -16,6 +17,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             ChannelSeeder::class,
             CategorySeeder::class,
+            PlaylistSeeder::class,
             VideoSeeder::class,
             CategoryVideoSeeder::class,
         ]);
