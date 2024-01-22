@@ -3,12 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 
 class Category extends Model
 {
     use HasFactory;
+    protected  static $relationships = ['videos'];
 
     public function videos()
     {
@@ -18,9 +18,5 @@ class Category extends Model
     public function scopeSearch($query, ?string $name){
         return $query->where('name', 'like', "%$name%");
     }
-    public function scopeWithRelationships($query, array|string $with)
-    {
-        $relationships = ['videos'];
-        return $query->with(array_intersect(Arr::wrap($with), $relationships));
-    }
+
 }

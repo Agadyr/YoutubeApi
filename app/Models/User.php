@@ -6,11 +6,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Arr;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
+    protected static $relationships = ['channel'];
 
     /**
      * The attributes that are mass assignable.
@@ -47,16 +49,16 @@ class User extends Authenticatable
         return $this->hasOne(Channel::class);
     }
 
-    public function scopeSearch($query, ?string $text){
-        return $query->where(function ($query) use($text){
+    public function scopeSearch($query, ?string $text)
+    {
+        return $query->where(function ($query) use ($text) {
             $query->where('name', 'like', "%$text%")
-                ->orWhere('email', 'like',"%$text%");
+                ->orWhere('email', 'like', "%$text%");
         });
     }
 
-    public function scopeWithRelationships($query, array $with)
+    public function scopeWithRelationships($query, array|string $with)
     {
-        $relationships = ['channel'];
-        return $query->with(array_intersect($with, $relationships));
+        return $query->with(array_intersect(Arr::wrap($with), static::$relationships));
     }
 }
