@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             PlaylistSeeder::class,
             VideoSeeder::class,
             CategoryVideoSeeder::class,
+            PlaylistVideoSeeder::class,
         ]);
     }
 }

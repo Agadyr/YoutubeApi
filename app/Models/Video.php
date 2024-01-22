@@ -20,6 +20,11 @@ class Video extends Model
         return $this->belongsToMany(Category::class);
     }
 
+    public function playlists()
+    {
+        return $this->belongsToMany(Playlist::class);
+    }
+
     public function scopefromPeriod($query,?Period $period){
         return $period ? $query->where('created_at', '>=', $period->date()) : $query;
     }
