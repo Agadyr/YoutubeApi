@@ -9,7 +9,7 @@ class UsersController extends Controller
 {
     public function index()
     {
-        return User::WithRelationships(request('with', []))
+        return User::WithRelationships(request('with'))
             ->Search(request('query'))
             ->orderBy(request('sort', 'name'), request('order', 'asc'))
             ->simplePaginate(request('limit'));
@@ -17,7 +17,7 @@ class UsersController extends Controller
 
     public function show(User $user)
     {
-        return $user->load(request('with',[]));
+        return $user->loadRelationships(request('with'));
     }
 
 }

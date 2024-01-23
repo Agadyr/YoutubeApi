@@ -10,7 +10,7 @@ class VideoController extends Controller
     public function index()
     {
 
-        return Video::WithRelationships(request('with',[]))
+        return Video::WithRelationships(request('with'))
             ->fromPeriod(Period::tryFrom(request('period')))
             ->Search(request('query'))
             ->orderBy(request('sort', 'created_at'), request('order', 'desc'))
@@ -20,6 +20,6 @@ class VideoController extends Controller
 
     public function show(Video $video)
     {
-        return $video->load(request('with', []));
+        return $video->loadRelationships(request('with'));
     }
 }

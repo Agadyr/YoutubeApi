@@ -10,7 +10,7 @@ class ChannelsController extends Controller
 {
     public function index()
     {
-        return Channel::WithRelationships(request('with', []))
+        return Channel::WithRelationships(request('with'))
             ->Search(request('query'))
             ->orderBy(request('sort', 'name'), request('order', 'asc'))
             ->simplePaginate(request('limit'));
@@ -18,7 +18,7 @@ class ChannelsController extends Controller
 
     public function show(Channel $channel)
     {
-        return $channel->load(request('with',[]));
+        return $channel->loadRelationships(request('with'));
     }
 
 }
