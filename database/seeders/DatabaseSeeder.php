@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             VideoSeeder::class,
             CategoryVideoSeeder::class,
             PlaylistVideoSeeder::class,
+            CategorySeeder::class
         ]);
     }
 }
