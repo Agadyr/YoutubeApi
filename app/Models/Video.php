@@ -20,6 +20,7 @@ class Video extends Model
     {
         return $this->belongsToMany(Category::class);
     }
+
     public function comments()
     {
         return $this->hasMany(Comment::class);
@@ -42,6 +43,12 @@ class Video extends Model
                 ->orWhere('description', 'like', "%$text%");
         });
     }
+
+    public function createRandomComments()
+    {
+        return Comment::factory(10)->create(['video_id' => $this->id]);
+    }
+
 
 
 }
