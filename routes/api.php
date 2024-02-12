@@ -3,6 +3,7 @@
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ChannelsController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\PersonalAccessTokenController;
 use App\Http\Controllers\PlaylistController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\VideoController;
@@ -25,6 +26,9 @@ Route::get('/videos/{video}', [VideoController::class, 'show']);
 
 Route::get('/comments', [CommentController::class, 'index']);
 Route::get('/comments/{comment}', [CommentController::class, 'show']);
-Route::post('/comments', [CommentController::class, 'store']);
-Route::put('/comments/{comment}', [CommentController::class, 'update']);
-Route::delete('/comments/{comment}', [CommentController::class, 'delete']);
+Route::post('/comments', [CommentController::class, 'store'])->middleware('auth:sanctum');
+Route::put('/comments/{comment}', [CommentController::class, 'update'])->middleware('auth:sanctum');
+Route::delete('/comments/{comment}', [CommentController::class, 'delete'])->middleware('auth:sanctum');
+
+
+Route::post('/personal-access-tokens', [PersonalAccessTokenController::class, 'store']);
