@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Comment;
 use Illuminate\Http\Request;
+use League\CommonMark\Reference\Reference;
 
 class CommentController extends Controller
 {
@@ -32,5 +33,14 @@ class CommentController extends Controller
         }
 
         return Comment::create($attributes);
+    }
+
+    public function update(Comment $comment, Request $request)
+    {
+        $attributes = $request->validate([
+            'text' => 'required|string',
+        ]);
+
+        $comment->fill($attributes)->save();
     }
 }
