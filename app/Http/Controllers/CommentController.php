@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comment;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use League\CommonMark\Reference\Reference;
 
 class CommentController extends Controller
@@ -37,6 +39,11 @@ class CommentController extends Controller
 
     public function update(Comment $comment, Request $request)
     {
+
+//        abort_if($request->user()->isNot($comment->user), Response::HTTP_UNAUTHORIZED ,'Unauthorized');
+
+        throw_if($request->user()->isNot($comment->user), AuthorizationException::class);
+
         $attributes = $request->validate([
             'text' => 'required|string',
         ]);
