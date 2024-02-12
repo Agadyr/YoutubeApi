@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comment;
+use App\Models\User;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use League\CommonMark\Reference\Reference;
+use Illuminate\Support\Facades\Gate;
 
 class CommentController extends Controller
 {
@@ -28,8 +28,6 @@ class CommentController extends Controller
             'video_id' => 'required_without:parent_id|exists:videos,id',
         ]);
 
-
-
         return Comment::create($attributes);
     }
 
@@ -38,7 +36,7 @@ class CommentController extends Controller
 
 //        abort_if($request->user()->isNot($comment->user), Response::HTTP_UNAUTHORIZED ,'Unauthorized');
 
-        $this->check($comment, $request);
+        Gate::allowIf(fn(User $user) => $user->id === $comment->user_id);
 
         $attributes = $request->validate([
             'text' => 'required|string',
@@ -47,13 +45,10 @@ class CommentController extends Controller
         $comment->fill($attributes)->save();
     }
 
-    public function delete(Request $request,Comment $comment)
+    public function delete(Comment $comment)
     {
-        $this->check($comment, $request);
-        $comment->delete();
-    }
-    private function check(Comment $comment, Request $request){
-        throw_if($request->user()->isNot($comment->user), AuthorizationException::class);
+        Gate::allowIf(fn(User $user) => $user->is($comment->user));
 
+        $comment->delete();
     }
 }
