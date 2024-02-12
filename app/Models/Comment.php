@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
+use App\Enums\Period;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 
 class Comment extends Model
 {
     use HasFactory;
+    protected static $relationships = ['user', 'video'];
+
 
     protected $guarded = [];
 
@@ -36,5 +38,14 @@ class Comment extends Model
     {
         return $this->belongsTo(Video::class);
     }
+    public function scopefromPeriod($query, ?Period $period)
+    {
+        return $period ? $query->where('created_at', '>=', $period->date()) : $query;
+    }
+    public function scopeSearch($query, ?string $text)
+    {
+        return $query->where('text', 'like', "%$text%");
+    }
+
 
 }

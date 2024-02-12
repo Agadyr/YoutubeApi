@@ -39,6 +39,6 @@ trait WithRelationships
 
     public function isValidRelationship(string $relationship)
     {
-        return method_exists($this, $relationship) && in_array($relationship, static::$relationships);
+        return method_exists($this, $relationship) && in_array($relationship, static::$relationships ?? []);
     }
 }

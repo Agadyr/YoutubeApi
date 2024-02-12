@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\Period;
 use App\Models\Comment;
 use App\Models\User;
+use App\Models\Video;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -12,12 +14,17 @@ class CommentController extends Controller
 {
     public function index()
     {
-        return Comment::with('parent', 'user', 'video')->get();
+        return Comment::WithRelationships(request('with'))
+            ->fromPeriod(Period::tryFrom(request('period')))
+            ->Search(request('query'))
+            ->orderBy(request('sort', 'created_at'), request('order', 'desc'))
+            ->simplePaginate(request('limit'));
+
     }
 
     public function show(Comment $comment)
     {
-        return $comment;
+        return $comment->loadRelationships(request('with'));
     }
 
     public function store(Request $request)

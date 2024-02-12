@@ -13,7 +13,7 @@ use Laravel\Sanctum\HasApiTokens;
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable,WithRelationships;
-    protected static $relationships = ['channel'];
+    protected static $relationships = ['channel','comments'];
 
     /**
      * The attributes that are mass assignable.
@@ -48,6 +48,11 @@ class User extends Authenticatable
     public function channel()
     {
         return $this->hasOne(Channel::class);
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
     }
 
     public function scopeSearch($query, ?string $text)
