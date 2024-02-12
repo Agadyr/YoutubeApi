@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
             $table->text('text');
-            $table->foreignId('parent_id')->nullable()->references('id')->on('comments');
+            $table->foreignId('parent_id')->nullable()->references('id')->on('comments')->cascadeOnDelete();
             $table->foreignIdFor(\App\Models\User::class)->constrained();
             $table->foreignIdFor(\App\Models\Video::class)->constrained();
             $table->timestamps();
