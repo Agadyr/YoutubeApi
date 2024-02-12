@@ -43,7 +43,7 @@ class CommentController extends Controller
 
 //        abort_if($request->user()->isNot($comment->user), Response::HTTP_UNAUTHORIZED ,'Unauthorized');
 
-        Gate::allowIf(fn(User $user) => $user->id === $comment->user_id);
+        Gate::allowIf(fn(User $user) => $user->id === $comment->user_id && $user->tokenCan('comment:update'));
 
         $attributes = $request->validate([
             'text' => 'required|string',
@@ -54,7 +54,7 @@ class CommentController extends Controller
 
     public function delete(Comment $comment)
     {
-        Gate::allowIf(fn(User $user) => $user->is($comment->user));
+        Gate::allowIf(fn(User $user) => $user->id === $comment->user_id && $user->tokenCan('comment:delete'));
 
         $comment->delete();
     }
