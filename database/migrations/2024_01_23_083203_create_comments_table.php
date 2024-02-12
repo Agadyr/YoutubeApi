@@ -16,7 +16,7 @@ return new class extends Migration
             $table->text('text');
             $table->foreignId('parent_id')->nullable()->references('id')->on('comments');
             $table->foreignIdFor(\App\Models\User::class)->constrained();
-            $table->foreignIdFor(\App\Models\Video::class);
+            $table->foreignIdFor(\App\Models\Video::class)->constrained();
             $table->timestamps();
         });
     }
